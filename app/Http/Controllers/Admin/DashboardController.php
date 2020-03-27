@@ -1,0 +1,26 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\TravelPackage;
+use App\Transaction;
+
+class DashboardController extends Controller
+{
+    
+    public function index(Request $request)
+    {
+        
+
+        // memanggil views/pages/admin/dashboard.blade.php
+        return view ('pages.admin.dashboard',[
+            // yg akan dipanggil diview dashboard
+            'travel_package' => TravelPackage::count(),
+            'transaction' => Transaction::count(),
+            'transaction_pending' => Transaction::where('transaction_status','PENDING')->count(),
+            'transaction_success' => Transaction::where('transaction_status','SUCCESS')->count()
+        ]);
+    }
+}
